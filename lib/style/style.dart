@@ -26,3 +26,9 @@ var signupbutton = new TextStyle(
   fontSize: 18,
   color: Colors.green,
 );
+
+var registerinputtext = new TextStyle(
+  fontFamily: 'Play',
+  color: Colors.black,
+  fontSize: 14,
+);

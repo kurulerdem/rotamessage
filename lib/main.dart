@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rota_mesaj/screens/welcome_screen.dart';
+import 'package:rota_mesaj/screens/register_screen.dart';
 import 'package:rota_mesaj/style/style.dart';
 
 void main() {
@@ -12,23 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       home: MyHomePage(),
+      routes: {
+        WelcomeScreen.id:(context) => WelcomeScreen(),
+        RegisterScreen.id:(context) => RegisterScreen(),
+      },
     );
   }
 }
@@ -39,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController email = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +41,19 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30),
+                      child: CircleAvatar(
+                        radius: 40,
+                        child: Image(
+                          image: AssetImage('assets/images/rotamessage_logo.png'),
+                        ),
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(bottom: 30),
                       alignment: Alignment.center,
@@ -73,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
+                    controller: email,
                     style: inputtext,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -123,10 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(10.0)
                     ),
-                    onPressed: (){
-
-                    },
                     child: Text('Giriş Yap',style: butontext,),
+                    onPressed: (){
+                      print(email.text);
+                    },
 
                   ),
             ),
@@ -142,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: new BorderRadius.circular(10.0)
                       ),
                       onPressed: (){
-
+                            Navigator.pushNamed(context, RegisterScreen.id);
                       },
                       child: Text('Üye Ol',style: signupbutton,),
 
@@ -153,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   child: FlatButton(
+                    onPressed: (){},
                     child: Text('Giriş yaparken sorun mu yaşıyorsunuz ?',style: inputtext,),
                   ),
                 ),
@@ -165,4 +168,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 
