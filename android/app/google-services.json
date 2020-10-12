@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "818512644308",
+    "firebase_url": "https://rotamessage.firebaseio.com",
+    "project_id": "rotamessage",
+    "storage_bucket": "rotamessage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818512644308:android:4d1ef6629335598007d341",
+        "android_client_info": {
+          "package_name": "com.example.rota_mesaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818512644308-urfiecp375is9tc1l7q1d3048p6s5ufg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3pwThdBh-eklp1FV1RyYo6qrfjliLN64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818512644308-urfiecp375is9tc1l7q1d3048p6s5ufg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818512644308-8lr4fodj3ebv7v8epd836ji5tiv0a26l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rotaMesaj"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

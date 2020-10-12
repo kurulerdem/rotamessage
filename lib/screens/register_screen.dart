@@ -1,5 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rota_mesaj/alerts/alert.dart';
+import 'package:rota_mesaj/main.dart';
+import 'package:rota_mesaj/screens/welcome_screen.dart';
 import 'package:rota_mesaj/style/style.dart';
+import 'chatscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+
 class RegisterScreen extends StatefulWidget {
   static String id = 'register_screen';
   @override
@@ -7,7 +17,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
+  final _auth = FirebaseAuth.instance;
+String email;
+String password;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -42,6 +54,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Container(
 
                       child: TextField(
+                        onChanged: (value){
+                          email = value;
+                        },
                         style: registerinputtext,
                         decoration: InputDecoration(
                           fillColor: Colors.white,
@@ -73,6 +88,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Container(
 
                       child: TextField(
+                        onChanged: (value){
+                            password = value;
+                        },
                         obscureText: true,
                         style: registerinputtext,
                         decoration: InputDecoration(
@@ -99,8 +117,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0)
                       ),
-                      onPressed: (){
-                        Navigator.pushNamed(context, RegisterScreen.id);
+                      onPressed: () async{
+                        try {
+                          final newuser =  await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                              Navigator.pushNamed(context, MyHomePage.id);
+
+                              if(true) {
+                                _onBasicAlertPressed(context);
+                              }
+
+                          }
+
+                     catch(e){
+                          print(e);
+                     }
                       },
                       child: Text('Üye Ol',style: signupbutton,),
 
@@ -112,4 +142,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
       );
   }
+}
+_onBasicAlertPressed(context) {
+  Alert(
+    context: context,
+    title: "Başarılı",
+    desc: "Başarı ile üye oldunuz",
+  ).show();
 }

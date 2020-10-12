@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rota_mesaj/screens/chatscreen.dart';
 import 'package:rota_mesaj/screens/welcome_screen.dart';
 import 'package:rota_mesaj/screens/register_screen.dart';
 import 'package:rota_mesaj/style/style.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -18,18 +23,23 @@ class MyApp extends StatelessWidget {
       routes: {
         WelcomeScreen.id:(context) => WelcomeScreen(),
         RegisterScreen.id:(context) => RegisterScreen(),
+        MyHomePage.id:(context) => MyHomePage(),
+        ChatScreen.id:(context) => ChatScreen(),
       },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  static String id = "homepage_screen";
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController email = new TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
-                    controller: email,
+                    onChanged: (value){
+                      email = value;
+                    },
                     style: inputtext,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -101,6 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
+                    onChanged: (value){
+                      password = value;
+                    },
                     style: inputtext,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -126,8 +141,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: new BorderRadius.circular(10.0)
                     ),
                     child: Text('Giriş Yap',style: butontext,),
-                    onPressed: (){
-                      print(email.text);
+                    onPressed: () async{
+                      // Login function
+                      try {
+                        final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+                          Navigator.pushNamed(context, ChatScreen.id);
+
+
+                      }
+                         catch(e) {
+                            print(e);
+                         }
+
                     },
 
                   ),
