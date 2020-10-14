@@ -22,6 +22,6 @@ Future<void> showRegisterSuccessDialog() async {
           ),
         ],
       );
-    },
+    }, context: null,
   );
 }
